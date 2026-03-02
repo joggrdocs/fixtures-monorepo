@@ -1,0 +1,39 @@
+---
+description: API development conventions
+globs: apps/api/**/*.ts
+alwaysApply: false
+---
+
+## Express API Conventions
+
+### Route Structure
+Every route file in `apps/api/src/routes/` should:
+1. Create a `Router` instance
+2. Define zod schemas for request validation at the top of the file
+3. Implement route handlers below the schemas
+4. Export the router as the default export
+
+### Validation
+- Define zod schemas as `const` at module level, not inline in handlers
+- Use `.parse()` for required validation (throws on failure)
+- Use `.safeParse()` only when you need to handle errors differently from the global error handler
+- The `errorHandler` middleware automatically catches `ZodError` and returns a 400 response
+
+### Response Format
+All successful responses must follow this shape:
+```typescript
+{
+  data: T,
+  meta?: { total?: number, page?: number, perPage?: number }
+}
+```
+
+### Error Handling
+- Use `createAppError(message, statusCode)` from `../types` for known errors
+- Let the global `errorHandler` middleware catch and format all errors
+- Never send raw `res.status(500).json(...)` from a route handler
+
+### Store Usage
+- Import from `../store` for data access
+- The store uses `Map` internally — always check for `undefined` returns
+- Use the store's `create`, `update`, `delete` methods — don't mutate the Map directly

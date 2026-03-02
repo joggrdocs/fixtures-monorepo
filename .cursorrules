@@ -1,0 +1,39 @@
+## Project: TaskFlow
+
+You are working on TaskFlow, a pnpm monorepo with Turborepo for task management.
+
+## Tech Stack
+- TypeScript strict mode across all packages
+- Express 4 for the REST API (apps/api)
+- Next.js 14 App Router for the frontend (apps/web)
+- Tailwind CSS for styling
+- zod for request validation
+- Shared types and utilities in packages/shared
+
+## Coding Standards
+
+### TypeScript
+- Always use strict mode. Never use `any` or `@ts-ignore`.
+- Use `interface` for object shapes, `type` for unions.
+- Explicitly type function parameters and return types.
+- Use early returns to reduce nesting.
+- Prefer `const` over `let`. Never use `var`.
+
+### React / Next.js
+- Use server components by default. Only add "use client" when you need interactivity.
+- Co-locate components with the pages that use them when they're page-specific.
+- Use the `@taskflow/shared` package for all domain types — never duplicate types.
+- Keep components small and focused. Extract logic into hooks or utility functions.
+
+### API
+- All route handlers must validate request bodies with zod schemas.
+- Always return the standard `ApiResponse<T>` shape: `{ data, meta? }`.
+- Use the `createAppError` helper for error responses, not raw `res.status().json()`.
+- Register routes in `src/index.ts` — keep route files focused on handlers.
+
+### File Organization
+- Shared types go in `packages/shared/src/types.ts`
+- Utility functions go in `packages/shared/src/utils.ts`
+- API route files go in `apps/api/src/routes/`
+- React components go in `apps/web/components/`
+- Next.js pages go in `apps/web/app/`

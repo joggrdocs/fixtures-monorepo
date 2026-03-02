@@ -1,0 +1,14 @@
+{
+  "mcpServers": {
+    "filesystem": {
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-filesystem", "."]
+    },
+    "database": {
+      "args": ["--host", "localhost"],
+      "env": {
+        "DB_URL": "postgres://localhost:5432/tasks"
+      }
+    }
+  }
+}

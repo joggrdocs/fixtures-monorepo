@@ -1,0 +1,28 @@
+version: 1
+description: "Code review guidelines for the project"
+areas:
+  - name: "API Routes"
+    path: "apps/api/src/routes/**/*.ts"
+    rules:
+      - "All route handlers must validate input with zod"
+      - "Return consistent error response shapes"
+      - "Use createAppError for known error conditions"
+      - "Always check store return values for undefined"
+  - name: "Shared Package"
+    path: "packages/shared/src/**/*.ts"
+    rules:
+      - "All exported functions must have JSDoc"
+      - "No side effects in utility functions"
+      - "Keep types in types.ts and utils in utils.ts"
+  - name: "Web Components"
+    path: "apps/web/components/**/*.tsx"
+    rules:
+      - "Use server components by default"
+      - "Import types from @taskflow/shared"
+      - "Use Tailwind utility classes for styling"
+  - name: "Web Pages"
+    path: "apps/web/app/**/*.tsx"
+    rules:
+      - "Handle loading and error states"
+      - "Use the api client from lib/api.ts"
+      - "Keep page components thin — delegate to child components"
